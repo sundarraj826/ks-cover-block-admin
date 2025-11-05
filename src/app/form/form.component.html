@@ -1,0 +1,90 @@
+<div class="container mt-5">
+  <form [formGroup]="productForm" (ngSubmit)="productFormSubmit()">
+    <div class="row">
+      <div class="col-md-10">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Dealer Name</mat-label>
+          <input matInput placeholder="Dealer Name" type="text" formControlName="dealerName" />
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-2">
+        <button mat-flat-button type="button" (click)="addProduct()">Add Product</button>
+      </div>
+
+
+      <div class="col-md-12" formArrayName="productItems">
+        @for (productItem of productItems.controls; track i; let i = $index) {
+        <div class="row" [formGroupName]="i">
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Product</mat-label>
+              <mat-select formControlName="product">
+                @for (product of productsList; track $index) {
+                <mat-option [value]="product">{{ product }}</mat-option>
+                }
+
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-2">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Product Size</mat-label>
+              <input matInput placeholder="Number of Box" type="text" formControlName="productSize" />
+            </mat-form-field>
+          </div>
+          <div class="col-md-3">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Number of Box / Piece</mat-label>
+              <input matInput placeholder="Number of Box" type="number" formControlName="numberOfBox" />
+            </mat-form-field>
+          </div>
+          <div class="col-md-2">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Box Rate / Piece Rate</mat-label>
+              <input matInput placeholder="Box Rate" type="number" formControlName="boxRate" />
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-1">
+            <button mat-fab (click)="removeProduct(i)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+
+        </div>
+        }
+
+
+      </div>
+
+
+      <div class="col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>CGST (9%)</mat-label>
+          <input matInput placeholder="CGST" type="number" formControlName="cgst" readonly />
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>SCST (9%)</mat-label>
+          <input matInput placeholder="SCST" type="number" formControlName="scst" readonly />
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Total</mat-label>
+          <input matInput placeholder="Total" type="number" formControlName="total" readonly />
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-6">
+        <button mat-flat-button type="submit" [disabled]="productForm.invalid">Submit</button>
+      </div>
+    </div>
+  </form>
+
+
+</div>
